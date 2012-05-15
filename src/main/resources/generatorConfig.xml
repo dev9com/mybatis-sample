@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE generatorConfiguration PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN" "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd" >
+<generatorConfiguration>
+
+	<!-- Note that you have to specify the driver location here. The tool does 
+		not appear to use the Eclipse classpath or the project classpath -->
+	<classPathEntry
+		location="/Users/wiverson/.m2/repository/mysql/mysql-connector-java/5.1.13/mysql-connector-java-5.1.13.jar" />
+	<context id="context1" targetRuntime="MyBatis3">
+
+		<!-- Where to pull the data from -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost/fingw?autoCommit=true" userId="root"
+			password="" />
+
+		<!-- Note that the targetProject refers to the name of the project in your 
+			Eclipse IDE (not the name of the Maven project). If run outside of the IDE 
+			you can specify a path instead, but there doesn't seem to be a nice way to 
+			specify a single path for both usage scenarios. -->
+
+		<!-- Generates the model (the objects that hold the data) -->
+		<javaModelGenerator targetPackage="com.generated.mybatis.model"
+			targetProject="mybatis" />
+		<!-- Generates the interfaces used to retrieve data -->
+		<javaClientGenerator targetPackage="com.generated.mybatis.client"
+			targetProject="mybatis" type="ANNOTATEDMAPPER" />
+
+		<!-- List of tables to inspect -->
+		<table schema="fingw" tableName="ORDER" />
+		<table schema="fingw" tableName="PRODUCT" />
+		<table schema="fingw" tableName="CUSTOMER">
+			<columnOverride column="awfulNAMEforCOLUMN" property="description" />
+		</table>
+		<table schema="fingw" tableName="ORDER_HAS_PRODUCT" />
+		<table schema="fingw" tableName="CUSTOMER_HAS_ORDER" />
+	</context>
+</generatorConfiguration>
