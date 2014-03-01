@@ -9,3 +9,7 @@
 #Maven files
 target/**/*
 target/*
+
+#IntelliJ files
+*.iml
+.idea
