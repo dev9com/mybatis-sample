@@ -1,4 +1,7 @@
 Simple example of how to use MyBatis with annotations.
 
-This example uses a MySQL Workbench file to describe the database.  You
-can use that file to load in the (simple) database required by the project.
+This example uses an embedded H2 database by default.  This allows you to check the project out and immediately
+run a clean build via Maven (mvn clean verify).
+
+In addition, a MySQL Workbench file is included, along with a sample MyBatis generator file.  You can use these
+to explore more complex mappings.
