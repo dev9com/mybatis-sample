@@ -13,7 +13,7 @@ public class App {
 
 	public static void init() {
 		String resource = "Configuration.xml";
-		Reader reader = null;
+		Reader reader;
 		try {
 			reader = Resources.getResourceAsReader(resource);
 		} catch (IOException e) {
@@ -22,5 +22,6 @@ public class App {
 		}
 		factory = new SqlSessionFactoryBuilder().build(reader);
         factory.getConfiguration().addMapper(TransactionTokenMapper.class);
+
 	}
 }

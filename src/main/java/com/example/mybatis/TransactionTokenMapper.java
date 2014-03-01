@@ -12,6 +12,10 @@ import org.apache.ibatis.type.JdbcType;
  */
 public interface TransactionTokenMapper {
 
+
+    @Update("create table trans_token (id bigint auto_increment, trans_id varchar, token_id varchar)")
+    int schema();
+
     @Select({
             "select * from trans_token where id = #{id}"
     })

@@ -17,13 +17,23 @@ public class AppTest {
         App.init();
 
         assertNotNull(App.factory);
+
+        SqlSession s = App.factory.openSession();
+
+        TransactionTokenMapper mapper = s.getMapper(TransactionTokenMapper.class);
+        mapper.schema();
+
+        s.commit();
+        s.close();
     }
 
+    TransactionTokenMapper mapper = null;
     SqlSession session = null;
 
     @Before
     public void setupSession() {
         session = App.factory.openSession();  // This obtains a database connection!
+        mapper = session.getMapper(TransactionTokenMapper.class);
     }
 
     @After
@@ -42,8 +52,6 @@ public class AppTest {
 
     @Test
     public void testInsert() {
-        TransactionTokenMapper mapper = session.getMapper(TransactionTokenMapper.class);
-
         TransactionToken t = tokenFactory("alpha", "beta");
         mapper.insert(t);
         assertTrue(t.getId() > -1);
@@ -59,8 +67,6 @@ public class AppTest {
 
     @Test
     public void testUpdate() {
-        TransactionTokenMapper mapper = session.getMapper(TransactionTokenMapper.class);
-
         TransactionToken t = tokenFactory("faraday", "gamma");
         mapper.insert(t);
 
@@ -79,9 +85,6 @@ public class AppTest {
 
     @Test
     public void testDeleteById() {
-
-        TransactionTokenMapper mapper = session.getMapper(TransactionTokenMapper.class);
-
         long count = mapper.count();
 
         TransactionToken t = tokenFactory("indigo", "jakarta");
@@ -96,8 +99,6 @@ public class AppTest {
 
     @Test
     public void testDeleteByTransaction() {
-        TransactionTokenMapper mapper = session.getMapper(TransactionTokenMapper.class);
-
         long count = mapper.count();
 
         TransactionToken t2 = tokenFactory("kava", "lambda");
@@ -110,8 +111,6 @@ public class AppTest {
 
     @Test
     public void testFindByTransaction() {
-        TransactionTokenMapper mapper = session.getMapper(TransactionTokenMapper.class);
-
         TransactionToken t = tokenFactory("manual", "nova");
         mapper.insert(t);
         assertTrue(t.getId() >= 0);
@@ -123,8 +122,6 @@ public class AppTest {
 
     @Test
     public void testRollback() {
-        TransactionTokenMapper mapper = session.getMapper(TransactionTokenMapper.class);
-
         long count = mapper.count();
 
         TransactionToken t = tokenFactory("omega", "passport");
