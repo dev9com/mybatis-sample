@@ -27,8 +27,8 @@ public class AppTest {
         s.close();
     }
 
-    TransactionTokenMapper mapper = null;
-    SqlSession session = null;
+    private TransactionTokenMapper mapper = null;
+    private SqlSession session = null;
 
     @Before
     public void setupSession() {
@@ -42,7 +42,7 @@ public class AppTest {
         session.close();   // This releases the connection
     }
 
-    public TransactionToken tokenFactory(String tokenPrefix, String transactionPrefix)
+    private TransactionToken tokenFactory(String tokenPrefix, String transactionPrefix)
     {
         TransactionToken t = new TransactionToken();
         t.setToken(tokenPrefix + System.currentTimeMillis());
@@ -93,8 +93,6 @@ public class AppTest {
 
         mapper.deleteById(t);
         assertEquals(count, mapper.count());
-
-
     }
 
     @Test

@@ -12,9 +12,13 @@ import org.apache.ibatis.type.JdbcType;
  */
 public interface TransactionTokenMapper {
 
-
+    /**
+     * In this example, the DDL is invoked during the test setup.  It would be easy to envision using this kind
+     * of functionality to both intialize the database for test purposes as well as validating the bindings. For
+     * example, a standard schema() method and a validate() method, called as part of the factory setup.
+     */
     @Update("create table trans_token (id bigint auto_increment, trans_id varchar, token_id varchar)")
-    int schema();
+    void schema();
 
     @Select({
             "select * from trans_token where id = #{id}"
@@ -47,7 +51,7 @@ public interface TransactionTokenMapper {
     })
     void deleteById(TransactionToken token);
 
-        @Delete({
+    @Delete({
             "delete from trans_token where trans_id = #{transaction}"
     })
     void deleteByTransaction(TransactionToken token);
